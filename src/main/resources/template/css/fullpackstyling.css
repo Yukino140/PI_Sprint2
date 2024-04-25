@@ -1,0 +1,23 @@
+.side_ankerpane{
+    -fx-background-color: #353A56;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+}
+.menu_Buttons{
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-style: none;
+    -fx-text-fill: black;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+.split-pane {
+    -fx-background-color: transparent, -fx-background;
+}

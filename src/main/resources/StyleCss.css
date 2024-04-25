@@ -1,0 +1,54 @@
+/* Style pour les boutons */
+.button {
+    -fx-background-color: #1976D2; /* Bleu foncé */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 10px 20px; /* Espacement intérieur */
+    -fx-background-radius: 5px; /* Rayon des coins */
+    -fx-border-radius: 5px; /* Rayon des coins */
+    -fx-border-color: #1565C0; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-cursor: hand; /* Curseur */
+}
+
+.button:hover {
+    -fx-background-color: #1E88E5; /* Bleu foncé au survol */
+}
+
+/* Style pour les champs de texte */
+.text-field {
+    -fx-background-color: #f2f2f2; /* Couleur de fond */
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 3px; /* Rayon de la bordure */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 5px; /* Espacement intérieur */
+}
+
+/* Style pour les étiquettes */
+.label {
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-text-fill: #333; /* Couleur du texte */
+}
+
+/* Style pour le conteneur */
+.container {
+    -fx-background-color: #fff; /* Couleur de fond */
+    -fx-background-radius: 5px; /* Rayon des coins */
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 5px; /* Rayon des coins */
+    -fx-padding: 20px; /* Espacement intérieur */
+}
+
+/* Style pour le titre */
+.title {
+    -fx-font-size: 24px; /* Taille de la police */
+    -fx-font-weight: bold; /* Gras */
+    -fx-text-fill: #333; /* Couleur du texte */
+}
+
+/* Style pour la racine de la scène */
+.root {
+    -fx-background-color: #f9f9f9; /* Couleur de fond */
+}
