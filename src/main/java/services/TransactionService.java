@@ -2,6 +2,7 @@ package services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Facture;
 import models.Transaction;
 import models.Transaction_Type;
 import utils.MyDatabase;
@@ -84,7 +85,28 @@ public class TransactionService implements IService<Transaction> {
 
     @Override
     public Transaction getById(int id) throws SQLException {
-        return null;
+        String sql="Select * from Transaction where id="+id;
+        Statement statement=null;
+        try {
+            statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery(sql);
+            Transaction t = new Transaction();
+            while(rs.next()){
+                t.setId(rs.getInt("id"));
+                t.setAccount_number(rs.getString("account_number"));
+                t.setAmount(rs.getDouble("amount"));
+                t.setTransaction_type(Transaction_Type.valueOf(rs.getString("transaction_type")));
+                t.setDate(rs.getDate("date"));
+                t.setDescription(rs.getString("description"));
+                t.setFee(rs.getDouble("fee"));
+                t.setAuthenticator_code(rs.getDouble("authenticator_code"));
+                t.setReceiver_account_number(rs.getString("receiver_account_number"));
+            }
+            return t;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

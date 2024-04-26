@@ -4,12 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import models.Account;
+import models.DataSingleton;
 import models.Facture;
 import models.Transaction;
 import services.AccountService;
@@ -118,6 +121,8 @@ public class showTransactionsController {
     FactureService factureService=new FactureService();
     @FXML
     private AnchorPane facture;
+
+    DataSingleton d=DataSingleton.getInstance();
     @FXML
     void initialize() throws SQLException {
         this.acc=this.accountService.getById(1);
@@ -158,11 +163,15 @@ public class showTransactionsController {
 
 
                                     try {
+                                        d.setId(data.getId());
+
+
                                         Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/Facture.fxml"));
                                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                         alert.setTitle("Facture n"+data.getId());
                                         alert.getDialogPane().setContent(newLoadedPane);
                                         alert.show();
+
                                     } catch (IOException ex) {
                                         ex.printStackTrace();
                                         // Handle the exception (e.g., show an error message)
@@ -206,6 +215,7 @@ public class showTransactionsController {
                 return cell;
             }
 
+
         });
         delete.setCellFactory(new Callback<TableColumn<Transaction, String>, TableCell<Transaction, String>>() {
             @Override
@@ -231,6 +241,11 @@ public class showTransactionsController {
 
                                         try {
                                             ts.update(data);
+                                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                            alert.setTitle("Facture n"+data.getId());
+                                            alert.setContentText("success deleting");
+                                            alert.show();
+
                                         } catch (SQLException e) {
                                             throw new RuntimeException(e);
                                         }

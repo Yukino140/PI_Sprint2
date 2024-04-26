@@ -101,7 +101,7 @@ public class TransactionController {
         }*/
 
 
-        if (this.addressField.getText().isEmpty() && this.typeField.getValue() == null && this.amountField.getText().isEmpty() && this.authenticatorField.getText().isEmpty()) {
+        if (this.addressField.getText().isEmpty() || this.typeField.getValue() == null || this.amountField.getText().isEmpty() || this.authenticatorField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Empty Form", "Please fill in the form before submitting.");
         } else if (this.addressField.getText().isEmpty() || this.addressField.getText().trim().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Address Field Required", "The Address Field is required.");

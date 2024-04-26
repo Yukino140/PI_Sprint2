@@ -38,7 +38,7 @@ public class FactureService implements IService<Facture> {
 
     @Override
     public void delete(int id) throws SQLException {
-        String sql="delete from facture where id_transaction_id=?";
+        String sql="delete from facture where id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1,id);
         statement.executeUpdate();
