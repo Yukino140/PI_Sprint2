@@ -1,7 +1,9 @@
 package services;
 
+import models.Account;
 import models.Facture;
 import models.Transaction;
+import models.Transaction_Type;
 import utils.MyDatabase;
 
 import java.sql.*;
@@ -36,6 +38,11 @@ public class FactureService implements IService<Facture> {
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql="delete from facture where id_transaction_id=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1,id);
+        statement.executeUpdate();
+
 
     }
 
@@ -46,7 +53,26 @@ public class FactureService implements IService<Facture> {
 
     @Override
     public Facture getById(int id) throws SQLException {
-        return null;
+        String sql="Select * from Facture where id_transaction_id="+id;
+        Statement statement=null;
+        try {
+            statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery(sql);
+            Facture f = new Facture();
+            while(rs.next()) {
+                f.setId(rs.getInt("id"));
+                f.setId_transaction_id(rs.getInt("id_transaction_id"));
+                f.setTax(rs.getDouble("tax"));
+                //a.setCreatedAt(rs.getDate("createdAt"));
+                f.setMontant_ttc(rs.getInt("montant_ttc"));
+
+            }
+
+            return f;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

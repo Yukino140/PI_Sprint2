@@ -66,10 +66,9 @@ public class TransactionController {
         double authenticator = Double.parseDouble(this.authenticatorField.getText());
         String typeField = this.typeField.getTypeSelector();
 
-        Transaction t=new Transaction(this.acc.getAccount_number(),this.typeField.getValue(),Double.parseDouble(this.amountField.getText()),Integer.parseInt(this.authenticatorField.getText()),this.addressField.getText());
         TransactionService ts=new TransactionService();
 
-        if (addressField.isEmpty()) {
+     /*   if (addressField.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("The Addresse Field is required");
@@ -99,10 +98,42 @@ public class TransactionController {
             alert.show();
 
 
+        }*/
+
+
+        if (this.addressField.getText().isEmpty() && this.typeField.getValue() == null && this.amountField.getText().isEmpty() && this.authenticatorField.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Empty Form", "Please fill in the form before submitting.");
+        } else if (this.addressField.getText().isEmpty() || this.addressField.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Address Field Required", "The Address Field is required.");
+        } else if (this.typeField.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR, "Account Type Required", "You need to choose which account you want to use.");
+        } else {
+
+                double amount = Double.parseDouble(this.amountField.getText());
+                if (amount > acc.getBalance()) {
+                    showAlert(Alert.AlertType.ERROR, "Amount Exceeds Balance", "The Amount exceeds your actual Balance.");
+                } else if (authenticatorField.getText().trim().length() != 6) {
+                    showAlert(Alert.AlertType.ERROR, "Invalid Authenticator Code", "The authenticator Code must have exactly 6 numbers.");
+                } else {
+                    Transaction t=new Transaction(this.acc.getAccount_number(),this.typeField.getValue(),Double.parseDouble(this.amountField.getText()),Integer.parseInt(this.authenticatorField.getText()),this.addressField.getText());
+
+                    ts.create(t);
+                    showAlert(Alert.AlertType.INFORMATION, "Success", "Transaction créée avec succès!");
+                }
+
         }
 
 
 
 
+    }
+
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

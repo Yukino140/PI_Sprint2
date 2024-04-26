@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
@@ -142,15 +141,13 @@ public class showTransactionsController {
 */
    @FXML
    private AnchorPane body;
-
-
    Account acc=new Account();
     AccountService accountService=new AccountService();
     FactureService factureService=new FactureService();
-
+    @FXML
+    private AnchorPane facture;
     @FXML
     void initialize() throws SQLException {
-        body = new AnchorPane();
         this.acc=this.accountService.getById(1);
         TransactionService ts = new TransactionService();
         ObservableList<Transaction> observableliste = FXCollections.observableList(ts.readAllByAccounntNumber(this.acc.getAccount_number()));
@@ -182,11 +179,17 @@ public class showTransactionsController {
                                 btn.setOnMouseClicked(event -> {
                                     // Get the data from the current row
                                     Transaction data = getTableView().getItems().get(getIndex());
-                                    Controller c=new Controller();
+
+
                                     try {
-                                        c.toAddTransaction(event);
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
+                                        Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/Facture.fxml"));
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setTitle("Facture n"+data.getId());
+                                        alert.getDialogPane().setContent(newLoadedPane);
+                                        alert.show();
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                        // Handle the exception (e.g., show an error message)
                                     }
 
 
