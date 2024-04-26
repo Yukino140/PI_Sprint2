@@ -3,15 +3,16 @@ package models;
 import java.util.Date;
 
 public class Transaction {
-    private int id;
+    private int id,isArchived;
     private String account_number;
 
-    public Transaction(String account_number, Transaction_Type transaction_type, double amount, double authenticator_code,String receiver_account_number) {
+    public Transaction(String account_number, Transaction_Type transaction_type, double amount, double authenticator_code,String receiver_account_number,int isArchived) {
         this.account_number = account_number;
         this.transaction_type = transaction_type;
         this.amount = amount;
         this.authenticator_code = authenticator_code;
         this.receiver_account_number=receiver_account_number;
+        this.isArchived=isArchived;
     }
 
     private Transaction_Type transaction_type;
@@ -22,7 +23,7 @@ public class Transaction {
     private double authenticator_code;
     private String receiver_account_number;
 
-    public Transaction(String account_number, Transaction_Type transaction_type, double amount, Date date, String description, double fee, double authenticator_code, String receiver_account_number) {
+    public Transaction(String account_number, Transaction_Type transaction_type, double amount, Date date, String description, double fee, double authenticator_code, String receiver_account_number,int isArchived) {
         this.account_number = account_number;
         this.transaction_type = transaction_type;
         this.amount = amount;
@@ -31,9 +32,19 @@ public class Transaction {
         this.fee = fee;
         this.authenticator_code = authenticator_code;
         this.receiver_account_number = receiver_account_number;
+        this.isArchived=isArchived;
+
     }
 
-    public Transaction(int id, String account_number, Transaction_Type transaction_type, double amount, Date date, String description, double fee, double authenticator_code, String receiver_account_number) {
+    public int getIsArchived() {
+        return isArchived;
+    }
+
+    public void setIsArchived(int isArchived) {
+        this.isArchived = isArchived;
+    }
+
+    public Transaction(int id, String account_number, Transaction_Type transaction_type, double amount, Date date, String description, double fee, double authenticator_code, String receiver_account_number, int isArchived) {
         this.id = id;
         this.account_number = account_number;
         this.transaction_type = transaction_type;
@@ -43,6 +54,8 @@ public class Transaction {
         this.fee = fee;
         this.authenticator_code = authenticator_code;
         this.receiver_account_number = receiver_account_number;
+        this.isArchived=isArchived;
+
     }
 
     public int getId() {

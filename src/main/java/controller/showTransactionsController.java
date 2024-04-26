@@ -16,6 +16,7 @@ import services.AccountService;
 import services.FactureService;
 import services.TransactionService;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -40,38 +41,9 @@ public class showTransactionsController {
     private TableColumn<Transaction, String> ColAction;
 
 
-    @FXML
-    private Button btnAjouter;
 
     @FXML
-    private Button btnModifier;
-
-    @FXML
-    private Button btnSupprimer;
-
-    @FXML
-    private TextField tDepartement;
-
-    @FXML
-    private TextField tId;
-
-    @FXML
-    private TextField tEmail;
-
-    @FXML
-    private TextField tName;
-
-    @FXML
-    private TextField tPassword;
-
-    @FXML
-    private TextField tPrenom;
-
-    @FXML
-    private TextField tRole;
-
-    @FXML
-    private TextField tSalaire;
+    private TableColumn<Transaction, String> delete;
 
     @FXML
     private TableView<Transaction> tableView;
@@ -163,7 +135,11 @@ public class showTransactionsController {
             public TableCell<Transaction, String> call(TableColumn<Transaction, String> param) {
                 final TableCell<Transaction, String> cell = new TableCell<Transaction, String>() {
                     final Button btn = new Button("fact");
+
                     final Button btn1=new Button("create Fcture");
+                    final Button btn2=new Button("delete");
+                    final ButtonGroup bg=new ButtonGroup();
+
 
 
                     @Override
@@ -193,8 +169,12 @@ public class showTransactionsController {
                                     }
 
 
-                                });}
+                                }
+                                );
+
+                                    }
                                 if (!factureService.hasFacture(getTableView().getItems().get(getIndex()).getId())){
+
                                     setGraphic(btn1);
 
                                     btn1.setOnAction(event -> {
@@ -213,19 +193,66 @@ public class showTransactionsController {
 
 
                                     });}
+
+
                             } catch (SQLException e) {
                                 throw new RuntimeException(e);
                             }
+
 
                         }
                     }
                 };
                 return cell;
             }
+
+        });
+        delete.setCellFactory(new Callback<TableColumn<Transaction, String>, TableCell<Transaction, String>>() {
+            @Override
+            public TableCell<Transaction, String> call(TableColumn<Transaction, String> param) {
+                final TableCell<Transaction, String> cell = new TableCell<Transaction, String>() {
+
+                    final Button btn2=new Button("delete");
+
+
+
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+
+                                    setGraphic(btn2);
+
+                                    btn2.setOnAction(event -> {
+                                        Transaction data = getTableView().getItems().get(getIndex());
+                                        System.out.println(data.getAmount());
+
+                                        try {
+                                            ts.update(data);
+                                        } catch (SQLException e) {
+                                            throw new RuntimeException(e);
+                                        }
+
+                                    } );
+
+
+                        }
+
+
+
+
+
+                    }
+                };
+                return cell;
+            }
+
         });
 
 // Add the button column to your TableView
-        tableView.getColumns().add(ColAction);
+        tableView.getColumns().add(delete);
 
         tableview();
 

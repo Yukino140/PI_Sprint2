@@ -218,7 +218,7 @@ public class Controller implements Initializable {
     }
     public void toAllTransactions(MouseEvent e) throws IOException{
         try {
-            Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/Transactions.fxml"));
+            Pane newLoadedPane =  FXMLLoader.   load(getClass().getResource("/Transactions.fxml"));
 
             AnchorPane.setTopAnchor(newLoadedPane, 0.0);
             AnchorPane.setBottomAnchor(newLoadedPane, 0.0);

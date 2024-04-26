@@ -24,8 +24,8 @@ public class TransactionService implements IService<Transaction> {
     @Override
     public void create(Transaction transaction) throws SQLException {
         LocalDateTime now = LocalDateTime.now();
-        String sql = "insert into transaction (`account_number`, `transaction_type`, `amount`,`date`,`description`,`fee`,authenticator_code,`receiver_account_number`)"+
-                "values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into transaction (`account_number`, `transaction_type`, `amount`,`date`,`description`,`fee`,authenticator_code,`receiver_account_number`,`isArchived`)"+
+                "values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1,transaction.getAccount_number());
         statement.setString(2,transaction.getTransaction_type().toString());
@@ -35,11 +35,17 @@ public class TransactionService implements IService<Transaction> {
         statement.setDouble(6,0);
         statement.setDouble(7,transaction.getAuthenticator_code());
         statement.setString(8,transaction.getReceiver_account_number());
+        statement.setInt(9,transaction.getIsArchived());
         statement.executeUpdate();
     }
 
     @Override
-    public void update(Transaction transaction) throws SQLException {
+    public void update(Transaction t) throws SQLException {
+
+        String sql="update transaction set isArchived=1 where id=?";
+        PreparedStatement statement=connection.prepareStatement(sql);
+        statement.setInt(1,t.getId());
+        statement.executeUpdate();
 
     }
 
@@ -83,7 +89,7 @@ public class TransactionService implements IService<Transaction> {
 
     @Override
     public List<Transaction> readAllByAccounntNumber(String n) throws SQLException {
-        String sql = "select * from transaction where account_number='"+n+"'";
+        String sql = "select * from transaction where account_number='"+n+"' AND isArchived=0";
         Statement statement = null;
         try {
             statement = connection.createStatement();

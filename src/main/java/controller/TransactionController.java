@@ -115,7 +115,7 @@ public class TransactionController {
                 } else if (authenticatorField.getText().trim().length() != 6) {
                     showAlert(Alert.AlertType.ERROR, "Invalid Authenticator Code", "The authenticator Code must have exactly 6 numbers.");
                 } else {
-                    Transaction t=new Transaction(this.acc.getAccount_number(),this.typeField.getValue(),Double.parseDouble(this.amountField.getText()),Integer.parseInt(this.authenticatorField.getText()),this.addressField.getText());
+                    Transaction t=new Transaction(this.acc.getAccount_number(),this.typeField.getValue(),Double.parseDouble(this.amountField.getText()),Integer.parseInt(this.authenticatorField.getText()),this.addressField.getText(),0);
 
                     ts.create(t);
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Transaction créée avec succès!");
