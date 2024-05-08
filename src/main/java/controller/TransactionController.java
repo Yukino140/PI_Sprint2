@@ -7,16 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import models.Account;
-import models.Transaction;
-import models.Transaction_Type;
+import models.*;
 import services.AccountService;
+import services.ClientService;
+import services.ContactService;
 import services.TransactionService;
 import utils.MyDatabase;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Objects;
 
 public class TransactionController {
 
@@ -36,6 +38,8 @@ public class TransactionController {
 
     @FXML
     private Button insert;
+    @FXML
+    private ChoiceBox<String> contacts;
 
     @FXML
     void handleButtonAction(ActionEvent event) {
@@ -48,13 +52,44 @@ public class TransactionController {
     Statement st=null;
     TransactionService transactionService=new TransactionService();
     Account acc=new Account();
+    Client  c=new Client();
     AccountService accountService=new AccountService();
-
+    ClientService clientService=new ClientService();
+    ContactService contactService=new ContactService();
     @FXML
     void initialize() throws SQLException {
+        this.c=this.clientService.getById(1);
+        List<Account> ls = this.accountService.getAccountsOfClient(this.c.getId());
         this.acc=this.accountService.getById(1);
         System.out.println(this.acc.toString());
-        typeField.getItems().addAll(Transaction_Type.SAVINGS,Transaction_Type.BUSINESS,Transaction_Type.JOINT,Transaction_Type.STUDENT,Transaction_Type.CHECKING);
+        System.out.println(ls);
+        for(int i=0;i<ls.size();i++){
+            System.out.println(ls.get(i).getAccount_type());
+            typeField.getItems().add(i,ls.get(i).getAccount_type());
+        }
+
+        List<Contact> lc=this.contactService.getByClient(this.c.getId());
+        //typeField.getItems().addAll(Transaction_Type.SAVINGS,Transaction_Type.BUSINESS,Transaction_Type.JOINT,Transaction_Type.STUDENT,Transaction_Type.CHECKING);
+
+        for(int i=0;i<lc.size();i++){
+            contacts.getItems().add(i,lc.get(i).getContactName());
+        }
+        this.contacts.getItems().add("other");
+        this.contacts.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (!(newValue==null)&&(!newValue.equals("other"))){
+                this.addressField.setDisable(true);
+                this.addressField.setText(this.contactService.getContact(this.c.getId(),newValue).getContactAccount());
+            } else if(Objects.equals(newValue, "other")){
+                // If TextField has text, enable the button
+                this.addressField.setDisable(false);
+                this.addressField.setText("");
+            }
+            else{
+                this.addressField.setDisable(false);
+
+            }
+        });
 
     }
 
@@ -65,6 +100,8 @@ public class TransactionController {
         double amountField = Double.parseDouble(this.amountField.getText());
         double authenticator = Double.parseDouble(this.authenticatorField.getText());
         String typeField = this.typeField.getTypeSelector();
+
+
 
         TransactionService ts=new TransactionService();
 
@@ -100,6 +137,13 @@ public class TransactionController {
 
         }*/
 
+        if (this.addressField.getText().trim().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Veuillez saisir une adresse email.");
+            alert.showAndWait();
+            return;
+        }
 
         if (this.addressField.getText().isEmpty() || this.typeField.getValue() == null || this.amountField.getText().isEmpty() || this.authenticatorField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Empty Form", "Please fill in the form before submitting.");
@@ -115,9 +159,16 @@ public class TransactionController {
                 } else if (authenticatorField.getText().trim().length() != 6) {
                     showAlert(Alert.AlertType.ERROR, "Invalid Authenticator Code", "The authenticator Code must have exactly 6 numbers.");
                 } else {
-                    Transaction t=new Transaction(this.acc.getAccount_number(),this.typeField.getValue(),Double.parseDouble(this.amountField.getText()),Integer.parseInt(this.authenticatorField.getText()),this.addressField.getText(),0);
+                    Account acc1=this.accountService.getAccountByAccountType(String.valueOf(this.typeField.getValue()),this.c.getId());
+                    this.accountService.updateBalance(acc1.getAccount_number(),-Double.parseDouble(this.amountField.getText()));
+                    this.accountService.updateBalance(this.addressField.getText(),-Double.parseDouble(this.amountField.getText()));
+                    Transaction t=new Transaction(acc1.getAccount_number(),this.typeField.getValue(),Double.parseDouble(this.amountField.getText()),Integer.parseInt(this.authenticatorField.getText()),this.addressField.getText(),0);
 
                     ts.create(t);
+                    this.addressField.clear();
+                    this.amountField.clear();
+                    this.authenticatorField.clear();
+                    
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Transaction créée avec succès!");
                 }
 

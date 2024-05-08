@@ -111,30 +111,37 @@ public class TransactionService implements IService<Transaction> {
 
     @Override
     public List<Transaction> readAllByAccounntNumber(String n) throws SQLException {
-        String sql = "select * from transaction where account_number='"+n+"' AND isArchived=0";
-        Statement statement = null;
-        try {
-            statement = connection.createStatement();
+        return null;
+    }
 
-            ResultSet rs = statement.executeQuery(sql);
-            List<Transaction> transactions = new ArrayList<>();
-            while(rs.next()){
-                Transaction t = new Transaction();
-                t.setId(rs.getInt("id"));
-                t.setAccount_number(rs.getString("account_number"));
-                t.setAmount(rs.getDouble("amount"));
-                t.setTransaction_type(Transaction_Type.valueOf(rs.getString("transaction_type")));
-                t.setDate(rs.getDate("date"));
-                t.setDescription(rs.getString("description"));
-                t.setFee(rs.getDouble("fee"));
-                t.setAuthenticator_code(rs.getDouble("authenticator_code"));
-                t.setReceiver_account_number(rs.getString("receiver_account_number"));
-                transactions.add(t);
+
+    public List<Transaction> readAllByClient(int id) throws SQLException {
+        String sql = "SELECT T.* FROM Client C " +
+                "INNER JOIN Account A ON A.Owner_id = ? " +
+                "INNER JOIN transaction T ON T.account_number = A.account_number AND T.isArchived=0;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                List<Transaction> transactions = new ArrayList<>();
+                while (rs.next()) {
+                    Transaction t = new Transaction();
+                    t.setId(rs.getInt("id"));
+                    t.setAccount_number(rs.getString("account_number"));
+                    t.setAmount(rs.getDouble("amount"));
+                    t.setTransaction_type(Transaction_Type.valueOf(rs.getString("transaction_type")));
+                    t.setDate(rs.getDate("date"));
+                    t.setDescription(rs.getString("description"));
+                    t.setFee(rs.getDouble("fee"));
+                    t.setAuthenticator_code(rs.getDouble("authenticator_code"));
+                    t.setReceiver_account_number(rs.getString("receiver_account_number"));
+                    transactions.add(t);
+                }
+                return transactions;
             }
-            return transactions;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }    }
-
+        }
+    }
 
 }

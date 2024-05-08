@@ -6,51 +6,57 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="controller.FactureController">
+<AnchorPane prefHeight="550.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FactureController">
    <children>
-      <Text fx:id="titre" layoutX="347.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="62.8050537109375">
+      <Text fx:id="titre" layoutX="281.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="253.72845458984375">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="73.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number :" wrappingWidth="110.93670654296875" />
-      <Text fx:id="accnum" layoutX="205.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="73.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Received Account Number:" wrappingWidth="153.33673095703125" />
-      <Text fx:id="rcnum" layoutX="237.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="73.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="38.13671875" />
-      <Text fx:id="date" layoutX="117.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="123.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction">
+      <Text layoutX="115.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number :" wrappingWidth="110.93670654296875" />
+      <Text fx:id="accnum" layoutX="281.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.53668212890625" />
+      <Text layoutX="112.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Received Account Number:" wrappingWidth="153.33673095703125" />
+      <Text fx:id="rcnum" layoutX="310.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.53668212890625" />
+      <Text layoutX="115.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="38.13671875" />
+      <Text fx:id="date" layoutX="310.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="104.635498046875" />
+      <Text layoutX="166.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="225.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+      <Text layoutX="362.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="303.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Montant">
+      <Text layoutX="511.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Montant">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="123.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Versement" />
-      <Text fx:id="date2" layoutX="226.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="montant" layoutX="315.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="140.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tax" />
-      <Text fx:id="tax" layoutX="315.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="140.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total" />
-      <Text fx:id="ttc" layoutX="315.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="170.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transfert" />
+      <Text fx:id="date2" layoutX="315.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="104.635498046875" />
+      <Text fx:id="montant" layoutX="498.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="110.93670654296875" />
+      <Text layoutX="189.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tax">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Text>
+      <Text fx:id="tax" layoutX="501.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="104.635498046875" />
+      <Text layoutX="185.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Text>
+      <Text fx:id="ttc" layoutX="498.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="110.93670654296875" />
       <Line endX="19.79998779296875" endY="129.80001831054688" layoutX="101.0" layoutY="275.0" startX="19.79998779296875" startY="-11.0" strokeType="OUTSIDE" />
-      <Line endX="146.20001220703125" layoutX="225.0" layoutY="264.0" startX="-104.70001220703125" startY="-0.5" strokeType="OUTSIDE" />
-      <Line endX="154.0" endY="-3.0517578125E-5" layoutX="218.0" layoutY="405.0" startX="-96.70001220703125" startY="0.300018310546875" strokeType="OUTSIDE" />
-      <Line endX="-145.29290771484375" endY="90.70712280273438" layoutX="518.0" layoutY="315.0" startX="-146.29998779296875" startY="-51.0" strokeType="OUTSIDE" />
-      <Line endX="-168.20001220703125" endY="107.56063842773438" layoutX="357.0" layoutY="228.0" startX="-168.20001220703125" startY="36.70709228515625" />
-      <Line endX="-7.4000244140625" endY="190.29287719726562" layoutX="285.0" layoutY="214.0" startX="-7.4000244140625" startY="50.70709228515625" />
-      <Line endX="155.4141845703125" layoutX="218.0" layoutY="298.0" startX="-96.70001220703125" />
-      <Line endX="147.20355224609375" endY="0.853546142578125" layoutX="225.0" layoutY="334.0" startX="-104.70001220703125" startY="0.399993896484375" />
+      <Line endX="432.5999755859375" endY="-0.5" layoutX="225.0" layoutY="264.0" startX="-104.70001220703125" startY="-0.5" strokeType="OUTSIDE" />
+      <Line endX="443.5999755859375" endY="0.300018310546875" layoutX="218.0" layoutY="405.0" startX="-96.70001220703125" startY="0.300018310546875" strokeType="OUTSIDE" />
+      <Line endX="140.5999755859375" endY="91.30001831054688" layoutX="518.0" layoutY="315.0" startX="140.5999755859375" startY="-50.5" strokeType="OUTSIDE" />
+      <Line endX="-69.79998779296875" endY="106.89999389648438" layoutX="357.0" layoutY="228.0" startX="-69.79998779296875" startY="36.5" />
+      <Line endX="170.20001220703125" endY="192.30001831054688" layoutX="285.0" layoutY="214.0" startX="170.20001220703125" startY="50.5" />
+      <Line endX="438.800048828125" layoutX="218.0" layoutY="298.0" startX="-96.70001220703125" />
+      <Line endX="433.4000244140625" endY="0.399993896484375" layoutX="225.0" layoutY="334.0" startX="-104.70001220703125" startY="0.399993896484375" />
       <Button fx:id="delete" layoutX="225.0" layoutY="481.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" style="-fx-background-color: orange;" text="Delete" />
-      <Button layoutX="326.0" layoutY="481.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="82.0" style="-fx-background-color: skyblue;" text="Extract PDF" />
+      <Button fx:id="extractPDF" layoutX="326.0" layoutY="481.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="82.0" style="-fx-background-color: skyblue;" text="Extract PDF" />
       <Button layoutX="431.0" layoutY="481.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: clover;" text="Extract EXCEL" />
    </children>
 

@@ -55,6 +55,7 @@
                     <Image url="@template/resources/send money.png" />
                 </image>
             </ImageView>
+            <ChoiceBox fx:id="contacts" layoutX="362.0" layoutY="296.0" prefHeight="26.0" prefWidth="18.0" />
          </children>
       </AnchorPane>
    </children>

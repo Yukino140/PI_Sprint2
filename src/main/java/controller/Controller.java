@@ -246,7 +246,7 @@ public class Controller implements Initializable {
 
     public void toAllTransactions2() throws IOException{
         try {
-            Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/Transactions.fxml"));
+            Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/TransactionsTable.fxml.fxml"));
 
             AnchorPane.setTopAnchor(newLoadedPane, 0.0);
             AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
@@ -293,5 +293,24 @@ public class Controller implements Initializable {
     }
 
 
+    public void toContacts(MouseEvent mouseEvent) {
+        try {
+            Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/contacts.fxml"));
 
+            AnchorPane.setTopAnchor(newLoadedPane, 0.0);
+            AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
+            AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
+            AnchorPane.setRightAnchor(newLoadedPane, 0.0);
+            if(body.getChildren().isEmpty()){
+                body.getChildren().add(newLoadedPane);
+
+            }else{
+                body.getChildren().set(0,newLoadedPane);
+
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // Handle the exception (e.g., show an error message)
+        }
+    }
 }
