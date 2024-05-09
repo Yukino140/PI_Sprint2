@@ -4,11 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import models.*;
@@ -137,14 +140,20 @@ public class showTransactionsController {
     ClientService cs=new ClientService();
     TransactionService ts = new TransactionService();
     @FXML
-    void initialize() throws SQLException {
+    void initialize() throws SQLException, IOException {
         this.c=this.cs.getById(1);
 
         loadData();
 
     }
+    @FXML
+    private GridPane gridpane;
 
-    public void loadData() throws SQLException {
+    @FXML
+    private ScrollPane trasactionscrollpane;
+    private ListCellFactory lcf =new ListCellFactory();
+
+    public void loadData() throws SQLException, IOException {
         this.acc=this.accountService.getById(1);
 
         System.out.println(ts.readAllByClient(this.c.getId()));
@@ -222,6 +231,8 @@ public class showTransactionsController {
 
                                         } catch (SQLException e) {
                                             throw new RuntimeException(e);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
                                         }
 
 
@@ -273,6 +284,8 @@ public class showTransactionsController {
 
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
                                 }
 
                             } );
@@ -295,7 +308,7 @@ public class showTransactionsController {
         tableView.getColumns().add(delete);
 
         tableview();
-        List<Transaction> td=ts.readAllByAccounntNumber(this.acc.getAccount_number());
+        List<Transaction> td=ts.readAllByClient(this.c.getId());
 
         exportExcel.setOnAction(actionEvent ->
         {
@@ -355,6 +368,49 @@ public class showTransactionsController {
 
         });
 
+       /* int column = 0;
+        boolean empty;
+        int row = 1;
+        for (int i = 0; i < observableliste.size(); i++) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/ViewTransactions.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+            if(observableliste.isEmpty()){
+                 empty=true;
+            }else {
+                empty=false;
+            }
+
+            this.lcf.updateItem(observableliste.get(i), empty);
+
+            this.gridpane.add(anchorPane, column, row); //(child,column,row)
+            //set grid width
+            this.gridpane.setMinWidth(Region.USE_COMPUTED_SIZE);
+            this.gridpane.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            this.gridpane.setMaxWidth(Region.USE_PREF_SIZE);
+
+            //set grid height
+            this.gridpane.setMinHeight(Region.USE_COMPUTED_SIZE);
+            this.gridpane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            this.gridpane.setMaxHeight(Region.USE_PREF_SIZE);
+
+            GridPane.setMargin(anchorPane, new Insets(5));
+
+            // Increment column
+            column++;
+
+            // Check if column reached the last column
+            if (column == 1) {
+                // Reset column and move to the next row
+                column = 0;
+                row++;
+            }
+        }
+
+        // Ajouter la vue ListeUserController à votre mise en page
+        // Par exemple, si vous avez un AnchorPane nommé userContainer, vous pouvez l'ajouter ainsi :
+        this.trasactionscrollpane.setContent(this.gridpane);*/
+
         }
 
 
@@ -363,7 +419,7 @@ public class showTransactionsController {
 
 
     @FXML
-    void refrechTable(MouseEvent event) throws SQLException {
+    void refrechTable(MouseEvent event) throws SQLException, IOException {
         initialize();
 
     }

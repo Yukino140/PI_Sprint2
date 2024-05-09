@@ -5,10 +5,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="515.0" prefWidth="810.0" stylesheets="@StyleCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.showTransactionsController">
+<AnchorPane prefHeight="663.0" prefWidth="810.0" stylesheets="@template/css/tableView.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.showTransactionsController">
     <children>
        
-        <TableView fx:id="tableView" layoutX="28.0" layoutY="27.0" onMouseClicked="#refrechTable" prefHeight="399.0" prefWidth="776.0" stylesheets="@StyleCss.css" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.799999999999955" AnchorPane.topAnchor="27.0">
+        <TableView fx:id="tableView" layoutX="28.0" layoutY="42.0" onMouseClicked="#refrechTable" prefHeight="399.0" prefWidth="776.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.799999999999955" AnchorPane.topAnchor="42.0">
             <columns>
                 <TableColumn fx:id="ColFrom" prefWidth="86.0" text="from" />
             <TableColumn fx:id="ColTo" prefWidth="109.0" text="to" />
@@ -22,6 +22,6 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-      <Button fx:id="exportExcel" layoutX="350.0" layoutY="448.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="135.0" style="-fx-background-color: green; -fx-border-color: green;" text="Export Excel" />
+      <Button fx:id="exportExcel" layoutX="317.0" layoutY="502.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="135.0" style="-fx-background-color: green; -fx-border-color: green;" text="Export Excel" />
     </children>
 </AnchorPane>

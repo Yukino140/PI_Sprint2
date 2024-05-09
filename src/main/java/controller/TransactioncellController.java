@@ -33,10 +33,10 @@ public class TransactioncellController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        amount.setText(""+transaction.getAmount());
-        date.setText(""+transaction.getDate());
-        from.setText(transaction.getAccount_number());
-        to.setText(transaction.getReceiver_account_number());
-        type.setText(""+transaction.getTransaction_type());
+        this.amount.setText(""+this.transaction.getAmount());
+        this.date.setText(""+this.transaction.getDate());
+        this.from.setText(this.transaction.getAccount_number());
+        this.to.setText(this.transaction.getReceiver_account_number());
+        this.type.setText(""+this.transaction.getTransaction_type());
     }
 }

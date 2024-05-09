@@ -1,24 +1,44 @@
 package controller;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import models.*;
 import services.AccountService;
 import services.ClientService;
 import services.ContactService;
 import services.TransactionService;
 import utils.MyDatabase;
+import javafx.embed.swing.SwingFXUtils;
 
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
+
 
 public class TransactionController {
 
@@ -56,8 +76,13 @@ public class TransactionController {
     AccountService accountService=new AccountService();
     ClientService clientService=new ClientService();
     ContactService contactService=new ContactService();
+
+    @FXML
+    private Button pndgdown;
     @FXML
     void initialize() throws SQLException {
+        this.pndgdown.setVisible(false);
+
         this.c=this.clientService.getById(1);
         List<Account> ls = this.accountService.getAccountsOfClient(this.c.getId());
         this.acc=this.accountService.getById(1);
@@ -90,8 +115,45 @@ public class TransactionController {
 
             }
         });
+        this.typeField.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            Account acc1=this.accountService.getAccountByAccountType(String.valueOf(newValue),this.c.getId());
+            Image qrCodeImage = generateQRCode(acc1.getAccount_number(), 112, 94);
+            ImageView imageView = new ImageView(qrCodeImage);
+            this.qrPane.getChildren().add(imageView);
+            this.pndgdown.setVisible(true);
+            pndgdown.setOnAction(e -> {
+                try {
+                    downloadImage(qrCodeImage, "image.png");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+
+        });
+
+
+        // Create an ImageView to display the QR code
+
 
     }
+
+    private void downloadImage(Image image, String filename) throws IOException {
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save QR CODE");
+
+        // Add extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("png File (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Show save file dialog
+        File file = fileChooser.showSaveDialog(stage);
+        ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+    }
+    @FXML
+    private Pane qrPane;
+
 
     @FXML
     public void save(MouseEvent event) throws SQLException {
@@ -186,5 +248,26 @@ public class TransactionController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private Image generateQRCode(String text, int width, int height) {
+        try {
+            // Create QR code writer
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+
+            // Set encoding hints
+            Map<EncodeHintType, Object> hints = new HashMap<>();
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+            // Generate QR code matrix
+            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
+
+            // Convert bit matrix to image
+            Image image = SwingFXUtils.toFXImage(MatrixToImageWriter.toBufferedImage(bitMatrix), null);
+            return image;
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

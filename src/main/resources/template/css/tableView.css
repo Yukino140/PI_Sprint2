@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+.table-view {
+    -fx-background-color: #f0f0f0; /* Set background color */
+}
+
+/* Style for table headers */
+.table-view .column-header-background {
+    -fx-background-color: #4d4d4d; /* Set header background color */
+    -fx-text-fill: white; /* Set header text color */
+}
+
+/* Style for table cells */
+.table-view .table-row-cell {
+    -fx-background-color: #ffffff; /* Set cell background color */
+    -fx-text-fill: #333333; /* Set cell text color */
+}
+
+/* Style for alternating rows */
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f8f8f8; /* Set alternate row background color */
+}
+
+/* Style for selected cells */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #66b3ff; /* Set selected cell background color */
+    -fx-text-fill: white; /* Set selected cell text color */
+}
