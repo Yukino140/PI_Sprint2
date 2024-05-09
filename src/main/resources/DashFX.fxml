@@ -135,7 +135,7 @@
                                                       <Text layoutX="32.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Transaction" wrappingWidth="98.78309059143066" />
                                                    </children>
                                                 </Pane>
-                                                <Pane accessibleRole="MENU_BUTTON" layoutX="41.0" layoutY="304.0" prefHeight="40.0" onMouseClicked="#toContacts"  prefWidth="170.0">
+                                                <Pane accessibleRole="MENU_BUTTON" layoutX="41.0" layoutY="304.0" onMouseClicked="#toContacts" prefHeight="40.0" prefWidth="170.0">
                                                    <children>
                                                       <Text layoutX="34.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Contacts" wrappingWidth="121.18305397033691" />
                                                    </children>
@@ -154,7 +154,7 @@
                                                        <Text layoutX="57.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Investements" wrappingWidth="98.78309059143066" />
                                                    </children>
                                                 </Pane>
-                                                <Pane accessibleRole="MENU_BUTTON" layoutY="46.0" prefHeight="46.0" prefWidth="170.0">
+                                                <Pane accessibleRole="MENU_BUTTON" layoutY="46.0" onMouseClicked="#toReclamation" prefHeight="46.0" prefWidth="170.0">
                                                    <children>
                                                       <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -190,7 +190,7 @@
                                     </SplitPane>
                                  </children>
                               </AnchorPane>
-                            <AnchorPane fx:id="body" minHeight="0.0" minWidth="0.0"  prefHeight="581.0" prefWidth="800" />
+                            <AnchorPane fx:id="body" minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="800" />
                           </items>
                         </SplitPane>
                      </children>

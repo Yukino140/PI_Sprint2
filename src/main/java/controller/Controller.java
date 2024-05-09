@@ -313,4 +313,24 @@ public class Controller implements Initializable {
             // Handle the exception (e.g., show an error message)
         }
     }
+    public void toReclamation(MouseEvent mouseEvent) {
+        try {
+            Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/Reclamation.fxml"));
+
+            AnchorPane.setTopAnchor(newLoadedPane, 0.0);
+            AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
+            AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
+            AnchorPane.setRightAnchor(newLoadedPane, 0.0);
+            if(body.getChildren().isEmpty()){
+                body.getChildren().add(newLoadedPane);
+
+            }else{
+                body.getChildren().set(0,newLoadedPane);
+
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // Handle the exception (e.g., show an error message)
+        }
+    }
 }
